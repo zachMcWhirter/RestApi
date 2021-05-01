@@ -31,6 +31,13 @@ namespace RestApi
         {
 
             services.AddControllers();
+
+            services.AddCors(options => {
+                options.AddDefaultPolicy(builder => {
+                    builder.AllowAnyOrigin();
+                });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestApi", Version = "v1" });
@@ -42,6 +49,7 @@ namespace RestApi
 
             // Add all interface-repository pairs here
             services.AddScoped<ISongRepository, SongRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +67,8 @@ namespace RestApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("*");
 
             app.UseAuthorization();
 

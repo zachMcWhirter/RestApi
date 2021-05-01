@@ -1,13 +1,20 @@
-import React, { useContext, useEffect } from "react";
-import { SongContext } from "../Providers/SongProvider";
+import React, { useState, useEffect } from "react";
 import Song from "./Song";
 
 export default function SongList() {
-    const { songs, getAllSongs } = useContext(SongContext);
+
+    const [songs, setSongs] = useState([]);
+    const [error, setError] = useState();
 
     useEffect(() => {
-        getAllSongs()
+        fetch("https://localhost:44318/api/songs", {
+            method: "GET",
+
+        }).then(resp => resp.json())
+            .then(setSongs)
+            .catch(setError)
     }, [])
+
 
     return (
         <>
@@ -17,6 +24,9 @@ export default function SongList() {
                     <Song key={s.id} song={s}
                     />
                 )}
+            </div>
+            <div>
+                {error ? error.message : ""}
             </div>
 
         </>
