@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestApi.Data;
 using RestApi.Models;
@@ -14,6 +15,8 @@ namespace RestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("Policy1")]
+
     public class SongsController : ControllerBase
     {
         private readonly ISongRepository _songRepository;
