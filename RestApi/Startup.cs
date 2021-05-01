@@ -35,8 +35,12 @@ namespace RestApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestApi", Version = "v1" });
             });
-            services.AddDbContext<ApiDbContext>(option => option.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MusicDb;"));
 
+            services.AddDbContext<ApiDbContext>(option =>
+                option.UseSqlServer(
+                    @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MusicDb;"));
+
+            // Add all interface-repository pairs here
             services.AddScoped<ISongRepository, SongRepository>();
         }
 
